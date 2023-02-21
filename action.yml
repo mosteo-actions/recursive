@@ -1,0 +1,24 @@
+name: Countdown
+description: Countdown to 0
+inputs:
+  count:
+    description: Current count
+    required: true
+    default: 1
+
+runs:
+  using: "composite"
+  steps:
+    - run: Count is ${{inputs.count}}
+      shell: bash
+
+    - name: Decrease
+      id: decrease
+      shell: bash
+      run: |
+        echo "count=$((${{inputs.count}}-1))" >> $GITHUB_OUTPUT
+
+    - if: ${{inputs.count}} != 0
+      uses: mosteo-actions/recursive@v1
+      with:
+        count: ${{steps.decrease.outputs.count}}

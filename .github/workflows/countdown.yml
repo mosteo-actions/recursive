@@ -1,0 +1,10 @@
+name: Countdown
+on: [push, workflow_dispatch]
+
+jobs:
+  check_pr:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: mosteo-actions/recursive@v1
+      with:
+        count: 3
